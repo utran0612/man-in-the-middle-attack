@@ -1,15 +1,15 @@
-## Accept message from standard input or use defaults?
+# Accept message from standard input or use defaults?
 from string import Template
 import getpass
 
-CUSTOM_CHAT = False
+CUSTOM_CHAT = True
 
-## buffer for socket
+# buffer for socket
 # The slash here is important...
-BUFFER_DIR = Template('/tmp/$usr/').substitute(usr = getpass.getuser())
+BUFFER_DIR = Template('/tmp/$usr/').substitute(usr=getpass.getuser())
 BUFFER_FILE_NAME = 'buffer'
 
-## Secret messages
+# Secret messages
 NICE_MSG = {
     'alice': 'I love you too!',
     'bob': 'I love you!'
@@ -19,7 +19,7 @@ BAD_MSG = {
     'bob': 'I hate you!'
 }
 
-## Coloured output
+# Coloured output
 HEADER = '\033[95m'
 OKBLUE = '\033[94m'
 OKGREEN = '\033[92m'
