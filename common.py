@@ -22,7 +22,7 @@ def eve_setup(target, buffer_dir, buffer_file_name):
     dialog = Dialog('print')
     socket = Eve_Socket(target, buffer_dir, buffer_file_name)
     shared_key = do_Diffie_Hellman(socket)
-    dialog.info('Did DHKE! Channel established')
+    dialog.info('Did DHKE! Channel established with {}'.format(target.upper()))
     aes = AES(shared_key)
     return socket, aes
 
