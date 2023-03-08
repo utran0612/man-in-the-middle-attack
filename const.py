@@ -2,7 +2,7 @@
 from string import Template
 import getpass
 
-CUSTOM_CHAT = True
+CUSTOM_CHAT = False
 
 # buffer for socket
 # The slash here is important...
