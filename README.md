@@ -1,4 +1,4 @@
-# (Wo)Man-in-the-middle Attack (MitM) 😎
+# (Wo)Man-in-the-Middle Attack (MitM) 😎
 
 ## Overview
 
@@ -24,7 +24,8 @@ sudo pip install pyaes
 
 ## Usage
 
-Open two terminals and navigate to the directory with the scripts
+Open three terminals and navigate to the directory with the scripts. 
+Run the 3 files below in order (order matters).
 
 ```python
 python3 alice.py 
@@ -44,7 +45,7 @@ to Alice instead. The same would happen for Alice’s message;
 Eve would prompt the user for a second message and this time send it to Bob.
 
 ```python
-python3 eve.py --flag
+python3 eve.py <--flag>
 ```
 
 ```python
