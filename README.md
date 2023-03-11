@@ -12,11 +12,11 @@ Unfortunately Alice and Bob overlooked a fatal flaw: When communicating over the
 one cannot know with certainty that they are speaking to the intended
 party, at least not without using some form of cryptographic authentication. 
 
-In this program, I'll implement the MitM attack to eavesdrop and change messages between Alice and Bob
+In this program, I'll implement the MitM attack to eavesdrop and change messages between Alice and Bob!
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install [pyaes]https://pypi.org/project/pyaes/().
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install [pyaes](https://pypi.org/project/pyaes/).
 
 ```bash
 sudo pip install pyaes
@@ -30,17 +30,21 @@ Open two terminals and navigate to the directory with the scripts
 python3 alice.py 
 ```
 Eve has 3 flags:
---relay: Eve should just relay the two messages from Alice to Bob and from Bob to Alice. In
-this case, the outputs of both alice.py and bob.py in the terminals should be identical to the case when the
-MitM attack isn’t executed. 
---break-heart:  Eve should change the messages so that Alice receives the message ”I hate
-you!” and Bob receives ”You broke my heart...”. 
---custom: after receiving Bob’s messsage, Eve must prompt the user to input a message to the
-terminal and then must send this message to Alice instead. The same should happen for Alice’s message; Eve
-would prompt the user for a second message and this time send it to Bob.
+
+--relay: Eve should just relay the two messages from Alice to Bob 
+and from Bob to Alice. In this case, the outputs of both alice.py and bob.py 
+in the terminals should be identical to the case when the MitM attack isn’t executed. 
+
+--break-heart:  Eve should change the messages so that Alice receives 
+the message ”I hateyou!” and Bob receives ”You broke my heart...”. 
+
+--custom: after receiving Bob’s messsage, Eve must prompt the user 
+to input a message to the terminal and then must send this message 
+to Alice instead. The same would happen for Alice’s message; 
+Eve would prompt the user for a second message and this time send it to Bob.
 
 ```python
-python3 eve.py 
+python3 eve.py --flag
 ```
 
 ```python
