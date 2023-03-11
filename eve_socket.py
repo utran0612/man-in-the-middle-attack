@@ -4,6 +4,8 @@ import sys
 import os
 import errno
 
+# Eve's socket to connect with Alice and Bob
+
 
 class Eve_Socket:
     def __init__(self, target, buffer_dir, buffer_file_name):
@@ -12,6 +14,7 @@ class Eve_Socket:
 
     def open_connection(self, buffer_dir, buffer_file_name):
         buffer_path = buffer_dir + buffer_file_name
+        # if the target is Alice, create a socket and connect
         if self.target == 'alice':
             sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
             try:
@@ -19,7 +22,7 @@ class Eve_Socket:
             except socket.error:
                 raise
             return sock
-
+        # if the target is Bob, create a socket and wait for Bob to connect
         elif self.target == 'bob':
             try:
                 os.makedirs(buffer_dir)
@@ -53,29 +56,3 @@ class Eve_Socket:
         self.conn.close()
         if self.target == 'bob':
             os.remove(buffer_dir + buffer_file_name)
-
-
-# # test
-# if (__name__ == "__main__"):
-#     MSG = {
-#         'bob': b'I love you so so very much',
-#         'alice':   b'I love you too my darling'
-#     }
-
-#     player = sys.argv[1]
-#     sock = Socket(player, './buffer')
-
-#     if (player == 'bob'):  # bob sends first
-#         sock.send(MSG['bob'])
-#         message = sock.recv(len(MSG['alice'])).decode()
-#         print(message)
-#         sock.close()
-
-#     elif (player == 'alice'):  # alice sends second
-#         message = sock.recv(len(MSG['bob'])).decode()
-#         print(message)
-#         sock.send(MSG['alice'])
-#         sock.close()
-
-#     else:
-#         raise

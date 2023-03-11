@@ -1,12 +1,15 @@
-## Communication happens through UNIX sockets
+# Communication happens through UNIX sockets
 import socket
 import sys
-import os, errno
+import os
+import errno
+
 
 class Socket:
     def __init__(self, player, buffer_dir, buffer_file_name):
         self.player = player
         self.conn = self.open_connection(buffer_dir, buffer_file_name)
+        self.isOpen = False
 
     def open_connection(self, buffer_dir, buffer_file_name):
         buffer_path = buffer_dir + buffer_file_name
@@ -14,6 +17,7 @@ class Socket:
             sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
             try:
                 sock.connect(buffer_path)
+                self.isOpen = True
             except socket.error:
                 raise
             return sock
@@ -34,6 +38,7 @@ class Socket:
 
             sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
             sock.bind(buffer_path)
+            self.isOpen = True
             sock.listen(1)
             conn, rem_addr = sock.accept()
             return conn
@@ -48,9 +53,11 @@ class Socket:
         return self.conn.recv(length)
 
     def close(self, buffer_dir, buffer_file_name):
+        self.isOpen = False
         self.conn.close()
         if self.player == 'bob':
             os.remove(buffer_dir + buffer_file_name)
+
 
 # test
 if (__name__ == "__main__"):
@@ -62,13 +69,13 @@ if (__name__ == "__main__"):
     player = sys.argv[1]
     sock = Socket(player, './buffer')
 
-    if (player == 'bob'): # bob sends first
+    if (player == 'bob'):  # bob sends first
         sock.send(MSG['bob'])
         message = sock.recv(len(MSG['alice'])).decode()
         print(message)
         sock.close()
 
-    elif (player == 'alice'): # alice sends second
+    elif (player == 'alice'):  # alice sends second
         message = sock.recv(len(MSG['bob'])).decode()
         print(message)
         sock.send(MSG['alice'])
